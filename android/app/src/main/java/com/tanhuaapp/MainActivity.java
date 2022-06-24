@@ -4,7 +4,17 @@ import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
 
+// 导入Bundle类，该类的格式为key-value，用于实现数据的传递
+import android.os.Bundle;
+
 public class MainActivity extends ReactActivity {
+
+  // 覆写生命周期函数,在Activity被创建时调用
+  // 而Bundle类型的savedInstanceState可以保存状态数据
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(null);
+  }
 
   /**
    * Returns the name of the main component registered from JavaScript. This is used to schedule
