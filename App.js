@@ -9,8 +9,7 @@ import {
   ActivityIndicator,
   Modal,
 } from 'react-native';
-import {Dialog, Overlay} from '@rneui/themed';
-import Icon from 'react-native-vector-icons/dist/FontAwesome';
+// import {Dialog, Overlay} from '@rneui/themed';
 import React, {Component} from 'react';
 import Login from './src/components/Login';
 import Loading from './src/components/Loading';
@@ -34,6 +33,7 @@ const Toast = ({visible, message}) => {
 export default class App extends Component {
   state = {
     visibleToast: false,
+    isLoading: true,
   };
 
   handleButtonPress = () => {
@@ -48,7 +48,7 @@ export default class App extends Component {
   };
 
   render() {
-    const {visibleToast = false} = this.state;
+    const {visibleToast = false, isLoading} = this.state;
     console.log('visibleToast=', visibleToast);
     return (
       <View style={styles.logoWare}>
@@ -59,12 +59,10 @@ export default class App extends Component {
           source={require('./src/assets/img/cat.jpg')}
         />
         <Login />
-        <Loading animating={true} loadingColor="red" />
+        <Loading isLoading={isLoading} />
         {/* <ActivityIndicator size="small" color="#0000ff" animating={true} /> */}
-        <Overlay isVisible={true}>
-          <Text>App</Text>
-          <Icon name="rocket" size={30} color="#900" />
-        </Overlay>
+        {/* <StatusBar backgroundColor="#ccc" translucent={true} /> */}
+
         <Toast visible={visibleToast} message="Example" />
         <Button title="Toggle Toast" onPress={this.handleButtonPress} />
         <Button
