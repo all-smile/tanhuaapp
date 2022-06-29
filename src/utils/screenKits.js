@@ -1,7 +1,7 @@
-import { Dimensions } from 'react-native';
+import {Dimensions} from 'react-native';
 
-export const { width } = Dimensions.get('window');
-export const { height } = Dimensions.get('window');
+export const {width} = Dimensions.get('window');
+export const {height} = Dimensions.get('window');
 
 /**
  * 目的： 将像素转成dp, 起到适配不同手机屏幕大小的效果
@@ -13,4 +13,4 @@ export const { height } = Dimensions.get('window');
  * 假定设计稿 宽度 375
  * 使用： 200 -> px2dp(200)
  */
-export const px2dp = (elePx) => (width * elePx) / 375;
+export const px2dp = elePx => (width * elePx) / 375;

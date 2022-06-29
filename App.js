@@ -8,39 +8,44 @@ import {
   Button,
   ActivityIndicator,
   Modal,
+  TouchableOpacity,
 } from 'react-native';
 // import {Dialog, Overlay} from '@rneui/themed';
 import React, {Component} from 'react';
-import Login from './src/components/Login';
-import Loading from './src/components/Loading';
-// import AppNavigator from './src/navigation';
-import {px2dp} from './src/utils/screenKits';
+import Login from '~/components/Login';
+import Loading from '~/components/Loading';
+import Toast from '~/components/Toast';
+// import AppNavigator from '~/navigation';
+// import {px2dp} from '~/utils/screenKits';
+import {px2dp} from '~/utils/screenKits';
 
-const Toast = ({visible, message}) => {
-  console.log(visible, message);
-  if (visible) {
-    ToastAndroid.showWithGravityAndOffset(
-      message,
-      ToastAndroid.LONG,
-      ToastAndroid.TOP,
-      25,
-      50,
-    );
-    return null;
-  }
-  return null;
-};
+console.log('px2dp=', px2dp);
+
+// const Toast = ({visible, message}) => {
+//   console.log(visible, message);
+//   if (visible) {
+//     ToastAndroid.showWithGravityAndOffset(
+//       message + '565656',
+//       ToastAndroid.LONG,
+//       ToastAndroid.TOP,
+//       ToastAndroid.CENTER,
+//       25,
+//       50,
+//     );
+//     return null;
+//   }
+//   return null;
+// };
 export default class App extends Component {
   state = {
-    visibleToast: false,
-    isLoading: true,
+    visibleToast: true,
+    isLoading: false,
   };
 
-  handleButtonPress = () => {
+  handleToast = () => {
     this.setState({
       visibleToast: true,
     });
-    console.log(12);
   };
 
   toggleDialog1 = () => {
@@ -54,21 +59,13 @@ export default class App extends Component {
       <View style={styles.logoWare}>
         {/* <AppNavigator /> */}
         <StatusBar backgroundColor="transparent" translucent={true} />
-        <Image
-          style={styles.logo}
-          source={require('./src/assets/img/cat.jpg')}
-        />
+        <Image style={styles.logo} source={require('~/assets/img/cat.jpg')} />
         <Login />
         <Loading isLoading={isLoading} />
         {/* <ActivityIndicator size="small" color="#0000ff" animating={true} /> */}
         {/* <StatusBar backgroundColor="#ccc" translucent={true} /> */}
 
-        <Toast visible={visibleToast} message="Example" />
-        <Button title="Toggle Toast" onPress={this.handleButtonPress} />
-        <Button
-          title="测试"
-          onPress={() => ToastAndroid.show('我是悬浮窗信息', 20000)}
-        />
+        <Toast visible={visibleToast} message="自定义提示信息" />
         {/* <Dialog isVisible={true}>
           <Dialog.Title title="Dialog Title" />
           <Text>Dialog body text. Add relevant information here.</Text>

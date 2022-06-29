@@ -7,7 +7,7 @@ import {px2dp} from '../utils/screenKits';
 export default class Loading extends Component {
   constructor(props) {
     super(props);
-    this.spinValue = new Animated.Value(0);
+    this.spinValue = new Animated.Value(0); // 单个初始值
     this.state = {};
   }
 
@@ -24,11 +24,12 @@ export default class Loading extends Component {
   //旋转方法
   spin = () => {
     this.spinValue.setValue(0);
+    // Animated.timing()使用easing 函数让数值随时间动起来
     Animated.timing(this.spinValue, {
       toValue: 1, // 最终值 为1，这里表示最大旋转 360度
-      duration: 800,
+      duration: 500,
       easing: Easing.linear,
-      useNativeDriver: true,
+      useNativeDriver: true, //  启用原生动画驱动
     }).start(() => this.spin());
   };
 
