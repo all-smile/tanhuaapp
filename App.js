@@ -16,10 +16,7 @@ import Login from '~/components/Login';
 import Loading from '~/components/Loading';
 import Toast from '~/components/Toast';
 // import AppNavigator from '~/navigation';
-// import {px2dp} from '~/utils/screenKits';
 import {px2dp} from '~/utils/screenKits';
-
-console.log('px2dp=', px2dp);
 
 // const Toast = ({visible, message}) => {
 //   console.log(visible, message);
@@ -38,7 +35,7 @@ console.log('px2dp=', px2dp);
 // };
 export default class App extends Component {
   state = {
-    visibleToast: true,
+    visibleToast: false,
     isLoading: false,
   };
 
@@ -54,7 +51,6 @@ export default class App extends Component {
 
   render() {
     const {visibleToast = false, isLoading} = this.state;
-    console.log('visibleToast=', visibleToast);
     return (
       <View style={styles.logoWare}>
         {/* <AppNavigator /> */}
