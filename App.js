@@ -15,6 +15,7 @@ import React, {Component} from 'react';
 import Login from '~/components/Login';
 import Loading from '~/components/Loading';
 import Toast from '~/components/Toast';
+import Svg from '~/components/Svg';
 // import AppNavigator from '~/navigation';
 import {px2dp} from '~/utils/screenKits';
 
@@ -60,7 +61,8 @@ export default class App extends Component {
         <Loading isLoading={isLoading} />
         {/* <ActivityIndicator size="small" color="#0000ff" animating={true} /> */}
         {/* <StatusBar backgroundColor="#ccc" translucent={true} /> */}
-
+        <Svg icon="male" size={px2dp(45)} style={styles.writeBtn} />
+        <Svg icon="female" size={px2dp(45)} style={styles.writeBtn} />
         <Toast visible={visibleToast} message="自定义提示信息" />
         {/* <Dialog isVisible={true}>
           <Dialog.Title title="Dialog Title" />
