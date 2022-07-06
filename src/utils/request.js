@@ -12,12 +12,12 @@
 import axios from 'axios';
 // import moment from "moment";
 // import sessionStorage from './session-storage';
-import { isObject, isString } from './validator';
+import {isObject, isString} from './validator';
 import config from '../settings/config';
-import { aesEncrypt, aesDecrypt } from './crypto';
-import { rsaEncrypt, rsaDecrypt } from './jsencrypt';
+import {aesEncrypt, aesDecrypt} from './crypto';
+import {rsaEncrypt, rsaDecrypt} from './jsencrypt';
 
-const { aesKey, inUseMockdata } = config;
+const {aesKey, inUseMockdata} = config;
 
 axios.defaults.headers.post['Content-Type'] = 'application/json; charset=UTF-8';
 
@@ -41,13 +41,13 @@ const instance = axios.create({
   timeout: 20 * 1000,
   transformRequest: [
     function (data, headers) {
-      console.log('transformRequest data = ', data);
-      console.log('transformRequest headers = ', headers);
+      // console.log('transformRequest data = ', data);
+      // console.log('transformRequest headers = ', headers);
       if (isObject(data)) {
         // 一、请求参数加密
         if (process.env.VUE_APP_RUNTIME === 'prod') {
           data = JSON.stringify(data);
-          headers['keyCipher'] = rsaEncrypt(aesKey); // 传输 aes key 密文
+          headers.keyCipher = rsaEncrypt(aesKey); // 传输 aes key 密文
           data = aesEncrypt(data); // 加密请求参数
         }
         return data;
@@ -57,27 +57,27 @@ const instance = axios.create({
   ],
   transformResponse: [
     function (data, headers) {
-      console.log('transformResponse data = ', data);
-      console.log('transformResponse headers = ', headers);
+      // console.log('transformResponse data = ', data);
+      // console.log('transformResponse headers = ', headers);
       if (isString(data)) {
         try {
           // 先对 axios 返回的源数据处理
           data = JSON.parse(data);
-          console.log('data=====', data);
+          // console.log('data=====', data);
           /**
            * 二、获取响应数据之后解密
            * 判断 headers.keycipher 是否需要解密 (后端在接口报错的情况下，直接返回的是明文，不对错误信息加密)
            * 1、rsa 解密后端生成的 aes key
            * 2、aes 解密返参密文
            */
-          const { keycipher = '' } = headers || {};
+          const {keycipher = ''} = headers || {};
           if (keycipher) {
             // 解密
             const resAesKey = rsaDecrypt(keycipher);
             const dataStr = aesDecrypt(data, resAesKey) || '{}';
             data = JSON.parse(dataStr);
           }
-          console.log('res data ====', data);
+          // console.log('res data ====', data);
           return data;
         } catch (err) {
           console.log('transformResponse-err', err);
@@ -113,7 +113,7 @@ const codeMessage = {
 
 // 2. 添加请求拦截器
 instance.interceptors.request.use(
-  (config) => {
+  config => {
     // 在发送请求之前做些什么
     if (config.url) {
       config.headers = {
@@ -122,7 +122,12 @@ instance.interceptors.request.use(
         // token: sessionStorage.get('authToken') || '',
       };
       // 必须为开发环境，api内的mock开关开启才生效
-      if (process.env.NODE_ENV === 'development' && inUseMockdata && config.mock && config.mockUrl) {
+      if (
+        process.env.NODE_ENV === 'development' &&
+        inUseMockdata &&
+        config.mock &&
+        config.mockUrl
+      ) {
         // mock 生效路径
         config.url = config.mockUrl;
       }
@@ -133,11 +138,11 @@ instance.interceptors.request.use(
       return Promise.reject('接口不合法');
     }
   },
-  (error) => {
+  error => {
     // 对请求错误做些什么
     console.log('request-err', error);
     return Promise.reject(error);
-  }
+  },
 );
 
 const retry = 2; // 重发次数
@@ -145,7 +150,7 @@ const retryDelay = 200; // 重发时延
 
 // 3. 添加响应拦截器
 instance.interceptors.response.use(
-  (response) => {
+  response => {
     /* response: {
       // `data` 由服务器提供的响应
       data: {},
@@ -172,7 +177,7 @@ instance.interceptors.response.use(
     // 对响应数据做点什么
     return response.data;
   },
-  (error) => {
+  error => {
     // 对响应错误做点什么
     console.log('response-err', error);
     /*****
@@ -182,7 +187,7 @@ instance.interceptors.response.use(
     if (error && error.response) {
       // 1.公共错误处理
       // 2.根据响应码具体处理
-      const { status, config, statusText } = error.response;
+      const {status, config, statusText} = error.response;
       if (status) {
         const errorText = codeMessage[status] || statusText || '出错了';
         console.error(`请求错误 ${status}: ${config.url}\n${errorText}`);
@@ -194,18 +199,19 @@ instance.interceptors.response.use(
       console.log('error!: ' + JSON.stringify(error));
 
       // 重发逻辑
-      const { config = {} } = error || {};
+      const {config = {}} = error || {};
       // 记录单个api的请求次数
       config.requestCount = config.requestCount || 1;
       if (config.requestCount < retry) {
         config.requestCount++; // 重发次数累加
-        const backoff = new Promise((resolve) => {
+        const backoff = new Promise(resolve => {
           setTimeout(() => {
             resolve();
           }, retryDelay || 100);
         });
         // 重发 更新时间戳
-        const retryUrl = config.url.split('?')[0] + `?timeStamp=${new Date().getTime()}`;
+        const retryUrl =
+          config.url.split('?')[0] + `?timeStamp=${new Date().getTime()}`;
         config.url = retryUrl;
         console.log('retry config ===', config);
         return backoff.then(() => {
@@ -227,7 +233,7 @@ instance.interceptors.response.use(
 
     /** *** 处理结束 *****/
     return Promise.reject(error);
-  }
+  },
 );
 
 // 4.导出文件
