@@ -1,22 +1,25 @@
-import { View, Text, Button } from 'react-native';
+import {View, Text, Button} from 'react-native';
 import React from 'react';
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen({navigation}) {
+  console.log('navigation=', navigation);
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <Text>首页</Text>
       <Button
-        title="Go to Details"
+        title="查看详情"
         onPress={() =>
           navigation.navigate('Details', {
             itemId: 86,
             otherParam: 'anything you want here',
           })
         }
-      ></Button>
+      />
       <Button
-        title="Update the title"
-        onPress={() => navigation.setOptions({ title: 'Updated!', headerTitleAlign: 'center' })}
+        title="更新标题"
+        onPress={() =>
+          navigation.setOptions({title: 'Updated!', headerTitleAlign: 'center'})
+        }
       />
     </View>
   );

@@ -11,7 +11,7 @@ function AppNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Home"
+        initialRouteName="Details"
         screenOptions={{
           headerShadowVisible: false, // android 导航去阴影
           headerTitleAlign: 'center', // 标题居中 android/ios
