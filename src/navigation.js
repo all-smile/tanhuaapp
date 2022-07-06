@@ -2,8 +2,9 @@ import React from 'react';
 import {/* View, Text, */ Button /* TouchableOpacity */} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import HomeScreen from './pages02/Home/HomeScreen';
-import DetailScreen from './pages02/Detail/DetailScreen';
+import LoginScreen from './pages/Login/LoginScreen';
+import HomeScreen from './pages/Home/HomeScreen';
+import DetailScreen from './pages/Detail/DetailScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -11,7 +12,7 @@ function AppNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Details"
+        initialRouteName="Home"
         screenOptions={{
           headerShadowVisible: false, // android 导航去阴影
           headerTitleAlign: 'center', // 标题居中 android/ios
@@ -34,6 +35,13 @@ function AppNavigator() {
             />
           ),
         }}>
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{
+            title: '登录页',
+          }}
+        />
         <Stack.Screen
           name="Home"
           component={HomeScreen}
