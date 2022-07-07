@@ -22,12 +22,22 @@ export default class LoginScreen extends Component {
     status: 'phone', // phone-输入手机号 code-输入验证码
   };
 
+  componentDidMount() {
+    // console.log('InputCode', this.InputCode);
+  }
+
+  // 切换到输入验证码界面，并执行倒计时
   changeStatus = (data = {}) => {
     const {phoneNum = ''} = (data = {});
-    this.setState({
-      status: 'code',
-      phoneNum,
-    });
+    this.setState(
+      state => ({
+        status: 'code',
+        phoneNum,
+      }),
+      () => {
+        this.InputCode.countDown();
+      },
+    );
   };
 
   render() {
@@ -38,17 +48,17 @@ export default class LoginScreen extends Component {
         <View style={styles.logoWare}>
           <StatusBar backgroundColor="transparent" translucent={true} />
           <Image style={styles.logo} source={require('~/assets/img/cat.jpg')} />
-          <View>
-            {status === 'phone' ? (
-              <InputPhone changeStatus={this.changeStatus} />
-            ) : (
-              <Code />
-              // <InputCode phoneNum={phoneNum} />
-            )}
-          </View>
+          {status === 'phone' ? (
+            <InputPhone changeStatus={this.changeStatus} />
+          ) : (
+            <InputCode
+              phoneNum={phoneNum}
+              ref={node => (this.InputCode = node)}
+            />
+          )}
           <Loading isLoading={isLoading} />
-          <Svg icon="male" size={px2dp(45)} style={styles.writeBtn} />
-          <Svg icon="female" size={px2dp(45)} style={styles.writeBtn} />
+          {/* <Svg icon="male" size={px2dp(45)} style={styles.writeBtn} />
+          <Svg icon="female" size={px2dp(45)} style={styles.writeBtn} /> */}
         </View>
       </SafeAreaView>
     );

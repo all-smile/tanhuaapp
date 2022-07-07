@@ -38,7 +38,7 @@ export default class InputPhone extends Component {
 
     // 获取验证码
 
-    // 切换输入验证码的界面
+    // 切换输入验证码的界面, 倒计时开始
     const {changeStatus = null} = this.props;
     changeStatus && changeStatus({phoneNum: phoneNum});
   };

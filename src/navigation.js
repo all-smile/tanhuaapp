@@ -5,6 +5,10 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginScreen from './pages/Login/LoginScreen';
 import HomeScreen from './pages/Home/HomeScreen';
 import DetailScreen from './pages/Detail/DetailScreen';
+import Code from './pages/Login/Code';
+
+// 测试专用路由组件
+import Demo from './pages/Demo';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,7 +21,6 @@ function AppNavigator() {
           headerMode="none"
           component={LoginScreen}
           options={{
-            title: '登录页',
             headerShown: false, // 不显示标题
           }}
         />
@@ -25,11 +28,24 @@ function AppNavigator() {
           name="Home"
           component={HomeScreen}
           options={{
-            title: '首页',
             headerShown: false,
           }}
         />
         <Stack.Screen name="Details" component={DetailScreen} />
+        <Stack.Screen
+          name="Code"
+          component={Code}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Demo"
+          component={Demo}
+          options={{
+            headerShown: false,
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

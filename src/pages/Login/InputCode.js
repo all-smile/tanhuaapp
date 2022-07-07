@@ -7,37 +7,47 @@ import LinearBtn from '~/components/LinearBtn';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import {px2dp} from '~/utils/screenKits';
 import {isPhone} from '~/utils/validator';
+import Code from './Code';
 
 class InputCode extends Component {
+  state = {
+    seconds: 5,
+    btnText: '重新获取验证码',
+  };
+
+  componentDidMount() {
+    // this.countDown();
+  }
+
+  countDown = () => {
+    let seconds = 5;
+    let timer = setInterval(() => {
+      seconds--;
+      this.setState({
+        btnText: `重新获取(${seconds}s)`,
+      });
+      if (seconds <= 0) {
+        clearInterval(timer);
+        this.setState({
+          btnText: '重新获取验证码',
+        });
+      }
+    }, 1000);
+  };
+
   render() {
     const {phoneNum = ''} = this.props;
+    const {btnText = ''} = this.state;
     console.log('111', this.props);
     return (
       <View style={styles.loginWare}>
         <Text style={styles.loginTitle}>请输入6位验证码</Text>
         <Text style={styles.loginTitleDesc}>已发送到：+86 {phoneNum}</Text>
-        {/* <View style={styles.loginInputWare}>
-          <Input
-            placeholder="输入手机号码"
-            maxLength={11}
-            keyboardType="phone-pad"
-            value={phoneNum}
-            inputStyle={{color: '#333'}}
-            onChangeText={this.phoneNumChange}
-            errorMessage={errMsg}
-            onSubmitEditing={this.completeInput}
-            leftIcon={{
-              type: 'font-awesome',
-              name: 'phone',
-              color: '#ccc',
-              size: px2dp(20),
-            }}
-          />
-        </View> */}
+        <Code />
         <LinearBtn
           onPress={this.completeInput}
           style={{width: px2dp(280), height: px2dp(50)}}
-          textMsg="重新获取验证码"
+          textMsg={btnText}
         />
       </View>
     );
