@@ -13,7 +13,7 @@ import axios from 'axios';
 // import moment from "moment";
 // import sessionStorage from './session-storage';
 import {isObject, isString} from './validator';
-import config from '../settings/config';
+import config from '~/settings/config';
 import {aesEncrypt, aesDecrypt} from './crypto';
 import {rsaEncrypt, rsaDecrypt} from './jsencrypt';
 

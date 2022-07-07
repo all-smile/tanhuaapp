@@ -1,7 +1,7 @@
-import config from '../settings/config';
+import config from '~/settings/config';
 const CryptoJS = require('crypto-js'); // 引用AES源码js
 
-const { aesKey, aesIV } = config;
+const {aesKey, aesIV} = config;
 
 // AES/CBC/PKCS7Padding 算法/模式/补码方式
 // 字符集 utf-8

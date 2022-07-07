@@ -6,8 +6,8 @@ import {Button, ThemeProvider, Input} from '@rneui/themed';
 
 // import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
-import {px2dp} from '../utils/screenKits';
-import {isPhone} from '../utils/validator';
+import {px2dp} from '~/utils/screenKits';
+import {isPhone} from '~/utils/validator';
 
 export default class Login extends Component {
   state = {

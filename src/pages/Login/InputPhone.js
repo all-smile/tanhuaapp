@@ -2,6 +2,7 @@ import {View, Text, StyleSheet} from 'react-native';
 import React, {Component} from 'react';
 // import { Button } from 'react-native-elements';
 import {Button, ThemeProvider, Input} from '@rneui/themed';
+import LinearBtn from '~/components/LinearBtn';
 // import {Button} from '@rneui/base';
 
 // import Icon from 'react-native-vector-icons/FontAwesome';
@@ -9,7 +10,7 @@ import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import {px2dp} from '~/utils/screenKits';
 import {isPhone} from '~/utils/validator';
 
-export default class Login extends Component {
+export default class InputPhone extends Component {
   state = {
     phoneNum: '15615615615',
     errMsg: '',
@@ -34,6 +35,12 @@ export default class Login extends Component {
         errMsg: '',
       });
     }
+
+    // 获取验证码
+
+    // 切换输入验证码的界面
+    const {changeStatus = null} = this.props;
+    changeStatus && changeStatus({phoneNum: phoneNum});
   };
 
   render() {
@@ -41,10 +48,6 @@ export default class Login extends Component {
 
     return (
       <View style={styles.loginWare}>
-        {/* <ThemeProvider>
-          <Button title="Hey!" />
-        </ThemeProvider> */}
-        {/* <Button title="Solid Button" /> */}
         <Text style={styles.loginTitle}>手机号登录注册</Text>
         <View style={styles.loginInputWare}>
           <Input
@@ -64,7 +67,11 @@ export default class Login extends Component {
             }}
           />
         </View>
-        {/* <Icon name="rocket" size={30} color="#900" /> */}
+        <LinearBtn
+          onPress={this.completeInput}
+          style={{width: px2dp(280), height: px2dp(50)}}
+          textMsg="获取验证码"
+        />
       </View>
     );
   }

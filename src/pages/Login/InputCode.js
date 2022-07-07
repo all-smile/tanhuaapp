@@ -1,7 +1,6 @@
-import {View, Text, StyleSheet} from 'react-native';
 import React, {Component} from 'react';
-// import { Button } from 'react-native-elements';
-import {Button, ThemeProvider, Input} from '@rneui/themed';
+import {View, StyleSheet, Text} from 'react-native';
+import LinearBtn from '~/components/LinearBtn';
 // import {Button} from '@rneui/base';
 
 // import Icon from 'react-native-vector-icons/FontAwesome';
@@ -9,44 +8,15 @@ import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import {px2dp} from '~/utils/screenKits';
 import {isPhone} from '~/utils/validator';
 
-export default class Login extends Component {
-  state = {
-    phoneNum: '15615615615',
-    errMsg: '',
-  };
-
-  phoneNumChange = text => {
-    console.log(text);
-    this.setState({
-      phoneNum: text,
-    });
-  };
-
-  completeInput = () => {
-    const {phoneNum = ''} = this.state;
-    console.log('输入完成', phoneNum);
-    if (!isPhone(phoneNum)) {
-      this.setState({
-        errMsg: '手机号码格式不正确',
-      });
-    } else {
-      this.setState({
-        errMsg: '',
-      });
-    }
-  };
-
+class InputCode extends Component {
   render() {
-    const {phoneNum = '', errMsg = ''} = this.state;
-
+    const {phoneNum = ''} = this.props;
+    console.log('111', this.props);
     return (
       <View style={styles.loginWare}>
-        {/* <ThemeProvider>
-          <Button title="Hey!" />
-        </ThemeProvider> */}
-        {/* <Button title="Solid Button" /> */}
-        <Text style={styles.loginTitle}>手机号登录注册</Text>
-        <View style={styles.loginInputWare}>
+        <Text style={styles.loginTitle}>请输入6位验证码</Text>
+        <Text style={styles.loginTitleDesc}>已发送到：+86 {phoneNum}</Text>
+        {/* <View style={styles.loginInputWare}>
           <Input
             placeholder="输入手机号码"
             maxLength={11}
@@ -63,8 +33,12 @@ export default class Login extends Component {
               size: px2dp(20),
             }}
           />
-        </View>
-        {/* <Icon name="rocket" size={30} color="#900" /> */}
+        </View> */}
+        <LinearBtn
+          onPress={this.completeInput}
+          style={{width: px2dp(280), height: px2dp(50)}}
+          textMsg="重新获取验证码"
+        />
       </View>
     );
   }
@@ -79,7 +53,12 @@ const styles = StyleSheet.create({
     color: '#888',
     fontWeight: 'bold',
   },
+  loginTitleDesc: {
+    marginTop: px2dp(10),
+  },
   loginInputWare: {
     marginTop: px2dp(30),
   },
 });
+
+export default InputCode;

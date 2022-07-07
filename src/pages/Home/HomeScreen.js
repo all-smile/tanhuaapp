@@ -1,11 +1,11 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import Svg from '../../components/Svg';
-// import Btn from '../../components/Btn';
-import LinearBtn from '../../components/LinearBtn';
-import {px2dp} from '../../utils/screenKits';
-import {formatMoneyWithReg} from '../../utils/common';
-import settings from '../../settings';
+import Svg from '~/components/Svg';
+// import Btn from '~/components/Btn';
+import LinearBtn from '~/components/LinearBtn';
+import {px2dp} from '~/utils/screenKits';
+import {formatMoneyWithReg} from '~/utils/common';
+import settings from '~/settings';
 
 const {theme} = settings;
 

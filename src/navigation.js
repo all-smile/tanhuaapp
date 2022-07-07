@@ -11,35 +11,14 @@ const Stack = createNativeStackNavigator();
 function AppNavigator() {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="Home"
-        screenOptions={{
-          headerShadowVisible: false, // android 导航去阴影
-          headerTitleAlign: 'center', // 标题居中 android/ios
-          // 设置导航栏字体样式
-          headerTitleStyle: {
-            fontSize: 17,
-            color: '#fff',
-            fontFamily: 'PingFangSC-Semibold',
-            fontWeight: 'bold',
-          },
-          headerStyle: {
-            backgroundColor: '#f4511e',
-          },
-          // 标题右侧功能组件
-          headerRight: () => (
-            <Button
-              onPress={() => alert('This is a button!')}
-              title="Info"
-              color="red"
-            />
-          ),
-        }}>
+      <Stack.Navigator initialRouteName="Login">
         <Stack.Screen
           name="Login"
+          headerMode="none"
           component={LoginScreen}
           options={{
             title: '登录页',
+            headerShown: false, // 不显示标题
           }}
         />
         <Stack.Screen
@@ -47,6 +26,7 @@ function AppNavigator() {
           component={HomeScreen}
           options={{
             title: '首页',
+            headerShown: false,
           }}
         />
         <Stack.Screen name="Details" component={DetailScreen} />
