@@ -30,6 +30,7 @@ export default class InputPhone extends Component {
       this.setState({
         errMsg: '手机号码格式不正确',
       });
+      return;
     } else {
       this.setState({
         errMsg: '',

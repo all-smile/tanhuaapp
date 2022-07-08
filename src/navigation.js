@@ -9,6 +9,7 @@ import Code from './pages/Login/Code';
 
 // 测试专用路由组件
 import Demo from './pages/Demo';
+import Demo01 from './pages/Demo01';
 
 const Stack = createNativeStackNavigator();
 
@@ -42,6 +43,13 @@ function AppNavigator() {
         <Stack.Screen
           name="Demo"
           component={Demo}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Demo01"
+          component={Demo01}
           options={{
             headerShown: false,
           }}
