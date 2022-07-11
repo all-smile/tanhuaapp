@@ -17,7 +17,7 @@ const Stack = createNativeStackNavigator();
 function AppNavigator() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="UserInfo">
+      <Stack.Navigator initialRouteName="Login">
         <Stack.Screen
           name="Login"
           headerMode="none"
