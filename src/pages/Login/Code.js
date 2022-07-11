@@ -7,6 +7,7 @@ import {
   Platform,
 } from 'react-native';
 import settings from '~/settings';
+import MyToast from '~/components/Toast';
 
 import {
   CodeField,
@@ -38,10 +39,27 @@ const styles = StyleSheet.create({
 
 const CELL_COUNT = 6;
 
-const App = () => {
+const AppCode = (props = {}) => {
+  const {getCodeVal = null} = props;
+
   const [value, setValue] = useState('');
   const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
   console.log('value=', value);
+
+  // 验证码输入完成
+  const onComplete = () => {
+    console.log('456==', value);
+    if (value.length !== CELL_COUNT) {
+      MyToast.show({message: '验证码不正确'});
+      return;
+    }
+
+    getCodeVal && getCodeVal(value);
+    // 1、校验 长度
+    // 2、输入值返回给父组件，然后进行下面的逻辑
+    // 3、发送给后端
+    // 4、根据返回值判断是新旧用户，新用户-完善个人信息页面 老用户-首页
+  };
 
   return (
     <View style={styles.root}>
@@ -53,6 +71,7 @@ const App = () => {
           // Use `caretHidden={false}` when users can't paste a text value, because context menu doesn't appear
           value={value}
           onChangeText={setValue}
+          onSubmitEditing={onComplete}
           cellCount={CELL_COUNT}
           rootStyle={styles.codeFieldRoot}
           keyboardType="number-pad"
@@ -69,4 +88,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default AppCode;

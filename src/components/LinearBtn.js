@@ -10,11 +10,19 @@ export default class LinearBtn extends Component {
     textStyle: {},
     colors: ['#9b63cd', '#e0708c'], // 水平渐变色
     textMsg: '按钮',
+    disabled: false,
   };
   render() {
-    const {style = {}, textStyle = {}, colors = [], textMsg = ''} = this.props;
+    const {
+      style = {},
+      textStyle = {},
+      colors = [],
+      textMsg = '',
+      disabled = false,
+    } = this.props;
     return (
       <TouchableOpacity
+        disabled={disabled}
         onPress={this.props.onPress}
         style={{
           width: '100%',

@@ -5,6 +5,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginScreen from './pages/Login/LoginScreen';
 import HomeScreen from './pages/Home/HomeScreen';
 import DetailScreen from './pages/Detail/DetailScreen';
+import UserInfo from './pages/Account/UserInfo';
 import Code from './pages/Login/Code';
 
 // 测试专用路由组件
@@ -16,7 +17,7 @@ const Stack = createNativeStackNavigator();
 function AppNavigator() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator initialRouteName="UserInfo">
         <Stack.Screen
           name="Login"
           headerMode="none"
@@ -40,6 +41,15 @@ function AppNavigator() {
             headerShown: false,
           }}
         />
+        <Stack.Screen
+          name="UserInfo"
+          component={UserInfo}
+          options={{
+            headerShown: false,
+          }}
+        />
+
+        {/* 下面是测试路由组件 */}
         <Stack.Screen
           name="Demo"
           component={Demo}

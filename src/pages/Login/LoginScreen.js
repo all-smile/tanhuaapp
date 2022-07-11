@@ -11,8 +11,6 @@ import React, {Component} from 'react';
 import InputPhone from './InputPhone';
 import InputCode from './InputCode';
 import Loading from '~/components/Loading';
-import Svg from '~/components/Svg';
-import Code from './Code';
 
 import {px2dp} from '~/utils/screenKits';
 
@@ -23,10 +21,6 @@ export default class LoginScreen extends Component {
     status: 'phone', // phone-输入手机号 code-输入验证码
   };
 
-  componentDidMount() {
-    // console.log('InputCode', this.InputCode);
-  }
-
   // 切换到输入验证码界面，并执行倒计时
   changeStatus = (data = {}) => {
     const {phoneNum = ''} = (data = {});
@@ -36,13 +30,15 @@ export default class LoginScreen extends Component {
         phoneNum,
       }),
       () => {
-        this.InputCode.countDown();
+        this.InputCodeRef.countDown();
       },
     );
   };
 
   render() {
     const {status = '', phoneNum = '', isLoading = false} = this.state;
+
+    console.log('props===========', this.props);
 
     return (
       <View style={styles.container}>
@@ -61,14 +57,12 @@ export default class LoginScreen extends Component {
             ) : (
               <InputCode
                 phoneNum={phoneNum}
-                ref={node => (this.InputCode = node)}
+                {...this.props}
+                ref={node => (this.InputCodeRef = node)}
               />
             )}
             <Loading isLoading={isLoading} />
-            {/* <Svg icon="male" size={px2dp(45)} style={styles.writeBtn} />
-          <Svg icon="female" size={px2dp(45)} style={styles.writeBtn} /> */}
           </View>
-          <StatusBar backgroundColor="transparent" translucent={true} />
         </KeyboardAvoidingView>
       </View>
     );

@@ -36,7 +36,7 @@ export default class Loading extends Component {
   render() {
     const {isLoading = false, loadingDesc} = this.props;
 
-    //映射 0-1的值 映射 成 0 - 360 度
+    // 映射 0-1的值 映射 成 0 - 360 度
     const spin = this.spinValue.interpolate({
       inputRange: [0, 1], //输入值
       outputRange: ['0deg', '360deg'], //输出值
